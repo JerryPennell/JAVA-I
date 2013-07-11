@@ -23,7 +23,7 @@ public class AndroidUIDemo extends Activity {
         ll.setLayoutParams(lp);
         
         TextView tv = new TextView(this);
-        tv.setText("This is an example TextView");
+        tv.setText(getString(R.string.quarter)+","+getString(R.string.dime)+","+getString(R.string.nickel)+","+getString(R.string.penny));
         
         //Added Child to View which is text view
         ll.addView(tv);
@@ -43,8 +43,9 @@ public class AndroidUIDemo extends Activity {
         form.addView(et);
         form.addView(b);
         
+        ll.addView(form);
         
-        setContentView(form);
+        setContentView(ll);
     }
 
 
