@@ -1,3 +1,15 @@
+/*
+ * project		AndroidUIDemo
+ * 
+ * package		com.JerryPennell.androiduidemo
+ * 
+ * author		Jerry Pennell
+ * 
+ * date			Jul 10, 2013
+ * 
+ * This is a simple program that utilizes the view layouts and takes a text input
+ * while giving feedback of a random message to win a quarter, dime, nickel or penny
+ */
 package com.JerryPennell.androiduidemo;
 
 import android.os.Bundle;
@@ -9,18 +21,35 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AndroidUIDemo.
+ */
 public class AndroidUIDemo extends Activity {
 	
 	//Examples of Java variables
+	/** The ll. */
 	LinearLayout ll;
+	
+	/** The lp. */
 	LinearLayout.LayoutParams lp;
+	
+	/** The et. */
 	EditText et;
+	
+	/** The tv footer. */
 	TextView tvFooter;
 	
 	//String Variables
+	/** The hint. */
 	String hint;
+	
+	/** The txt value. */
 	String txtValue ="Nothing";
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	
@@ -31,6 +60,10 @@ public class AndroidUIDemo extends Activity {
     
     }
     
+    
+    /**
+     * Creates the linear layout.
+     */
     private void createLinearLayout (){
     	
     	//Integer Variable
@@ -102,11 +135,13 @@ public class AndroidUIDemo extends Activity {
 		
 		 setContentView(ll);
     }
+
     
-    /*
+    /**
      * Random fun generator to see how much your text is worth
+     *
+     * @return the string
      */
-    
     private String testTextNetWorth (){
     	int txtLen = et.getText().length();
     	for(int i = 0; i < txtLen; i ++){
@@ -142,7 +177,14 @@ public class AndroidUIDemo extends Activity {
      * This is a function to create custom hint based on an integer value
      * the default boolean is set to Type something here
      */
-	private String createCustomTextHint(int checkValInput, boolean checkText) {
+	/**
+     * Creates the custom text hint.
+     *
+     * @param checkValInput the check val input
+     * @param checkText the check text
+     * @return the string
+     */
+    private String createCustomTextHint(int checkValInput, boolean checkText) {
 		
 		//Conditional checking the value passed in if its greater than value of 1 
 		//and default checkText is false
@@ -159,6 +201,9 @@ public class AndroidUIDemo extends Activity {
 
 	
 	
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
