@@ -1,3 +1,12 @@
+/*
+ * project		Java1Week2
+ * 
+ * package		com.jpennell.lib
+ * 
+ * author		Jerry Pennell
+ * 
+ * date			Jul 17, 2013
+ */
 package com.jpennell.lib;
 
 import android.content.Context;
