@@ -16,19 +16,22 @@ package com.jpennell.lib;
 public enum Enum {
 
 	/** The Charleston. */
-	Charleston("90","90","NE","10"),
+	Charleston(90,90.5,"NE","10"),
 	
-	/** The Rock_ hill. */
-	Rock_Hill("87","93","NE","10"),
+	/** The Greenville. */
+	Greenville(87,93.2,"NE","10"),
 	
 	/** The Chester. */
-	Chester("97","100","NE","14");
+	Chester(97,100.8,"NE","14"),
+	
+	/** The Clover. */
+	Clover(95,95,"NE","13");
 
 	/** The humidity. */
-	private final String humidity;
+	private final int humidity;
 	
 	/** The temp. */
-	private final String temp;
+	private final double temp;
 	
 	/** The wind dir. */
 	private final String windDir;
@@ -45,7 +48,7 @@ public enum Enum {
 	 * @param windDir the wind dir
 	 * @param windSpeed the wind speed
 	 */
-	private Enum(String humidity, String temp, String windDir, String windSpeed) {
+	private Enum(int humidity, double temp, String windDir, String windSpeed) {
 		this.humidity = humidity;
 		this.temp = temp;
 		this.windDir = windDir;
@@ -57,7 +60,7 @@ public enum Enum {
 	 *
 	 * @return the string
 	 */
-	public String setHumidity() {
+	public int setHumidity() {
 		return humidity;
 	}
 
@@ -66,7 +69,7 @@ public enum Enum {
 	 *
 	 * @return the string
 	 */
-	public String setTemp() {
+	public double setTemp() {
 		return temp;
 	}
 
