@@ -21,11 +21,24 @@ import java.io.ObjectOutputStream;
 import android.content.Context;
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FileSystem.
+ */
 public class FileSystem {
 
     // Declare variables
     //Context _context;
 
+    /**
+     * Store string file.
+     *
+     * @param context the context
+     * @param filename the filename
+     * @param content the content
+     * @param external the external
+     * @return the boolean
+     */
     @SuppressWarnings("resource")
 	public static Boolean storeStringFile(Context context, String filename, String content, Boolean external) {
         try {
@@ -46,6 +59,15 @@ public class FileSystem {
         return true;
     }
 
+    /**
+     * Store object file.
+     *
+     * @param context the context
+     * @param filename the filename
+     * @param content the content
+     * @param external the external
+     * @return the boolean
+     */
     @SuppressWarnings("resource")
 	public static Boolean storeObjectFile(Context context, String filename, Object content, Boolean external) {
         try {
@@ -68,6 +90,14 @@ public class FileSystem {
         return true;
     }
 
+    /**
+     * Read string file.
+     *
+     * @param context the context
+     * @param filename the filename
+     * @param external the external
+     * @return the string
+     */
     @SuppressWarnings("resource")
 	public static String readStringFile(Context context, String filename, Boolean external) {
         String content = "";
@@ -103,6 +133,14 @@ public class FileSystem {
         return content;
     }
 
+    /**
+     * Read object file.
+     *
+     * @param context the context
+     * @param filename the filename
+     * @param external the external
+     * @return the object
+     */
     @SuppressWarnings("resource")
 	public static Object readObjectFile(Context context, String filename, Boolean external) {
         Object content = new Object();

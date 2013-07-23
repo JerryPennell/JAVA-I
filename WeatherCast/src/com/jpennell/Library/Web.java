@@ -18,12 +18,25 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Web.
+ */
 public class Web {
 
     // Declare variables
+    /** The _connected. */
     static Boolean _connected = false;
+    
+    /** The _connection type. */
     static String _connectionType = "Unavailable";
 
+    /**
+     * Gets the connection type.
+     *
+     * @param context the context
+     * @return the connection type
+     */
     public static String getConnectionType(Context context) {
         // Call newInfo method
         netInfo(context);
@@ -31,6 +44,12 @@ public class Web {
         return _connectionType;
     }
 
+    /**
+     * Gets the connection status.
+     *
+     * @param context the context
+     * @return the connection status
+     */
     public static Boolean getConnectionStatus(Context context) {
         // Call netInfo method
         netInfo(context);
@@ -38,6 +57,11 @@ public class Web {
         return _connected;
     }
 
+    /**
+     * Net info.
+     *
+     * @param context the context
+     */
     private static void netInfo(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
@@ -49,6 +73,12 @@ public class Web {
         }
     }
 
+    /**
+     * Gets the uRL string response.
+     *
+     * @param url the url
+     * @return the uRL string response
+     */
     public static String getURLStringResponse(URL url) {
         String response = "";
 
