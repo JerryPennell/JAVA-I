@@ -9,6 +9,7 @@
  */
 package com.jpennell.weathercast;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.InputType;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 /**
  * The Class SearchForm.
  */
+@SuppressLint("ViewConstructor")
 public class SearchForm extends LinearLayout {
 
     //Create variables

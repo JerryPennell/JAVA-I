@@ -89,6 +89,8 @@ public class MainActivity extends Activity {
         _context = this;
         _appLayout = new LinearLayout(this);
         _history = getHistory();
+        
+        //Logs out the history data
         Log.i("HISTORY READ", _history.toString());
 
         // Declare resource string
