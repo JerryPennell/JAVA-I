@@ -9,28 +9,33 @@
  */
 package com.jpennell.weathercast;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.jpennell.Library.FileSystem;
 import com.jpennell.Library.Web;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -42,43 +47,11 @@ public class MainActivity extends Activity {
     /** The _context. */
     Context _context;
     
-    /** The _app layout. */
-    LinearLayout _appLayout;
-    
     /** The _history. */
     HashMap<String, String> _history;
     
-    /** The _search. */
-    SearchForm _search;
-    
     /** The _is connected. */
     Boolean _isConnected = false;
-    
-    /** The _weather. */
-    WeatherDisplay _weather;
-    //FavDisplay _fav;
-
-    /* (non-Javadoc)
-     * @see android.app.Activity#onCreate(android.os.Bundle)
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Call createLayout method
-        createLayout();
-    }
-
-
-    /* (non-Javadoc)
-     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
 
     /**
@@ -87,36 +60,29 @@ public class MainActivity extends Activity {
     public void createLayout() {
         // Declare variables
         _context = this;
-        _appLayout = new LinearLayout(this);
         _history = getHistory();
-        
-        //Logs out the history data
+
         Log.i("HISTORY READ", _history.toString());
 
-        // Declare resource string
-        String _hint = getResources().getString(R.string.search_hint);
-        String _buttonText = getResources().getString(R.string.search_button_text);
-
-        _search = new SearchForm(_context, _hint, _buttonText);
-
         // Add Search Handler
-        Button searchButton = _search.getButton();
+        Button searchButton = (Button) findViewById(R.id.searchButton);
 
         // Create onClickListener for searchButton
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Log.i("CLICK HANDLER", _search.getField().getText().toString());
+                EditText field = (EditText) findViewById(R.id.searchField);
+                Log.i("CLICK HANDLER", field.getText().toString());
 
                 // Check to make sure entered value is valid zip
-                if (_search.getField().getText().toString().length() != 5) {
+                if (field.getText().toString().length() != 5) {
                     // Create toast (popup)
                     Toast toast = Toast.makeText(_context,"Invalid Zip", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
                     // Call getWeather method
-                    getWeather(_search.getField().getText().toString());
+                    getWeather(field.getText().toString());
                 }
             }
         });
@@ -146,19 +112,6 @@ public class MainActivity extends Activity {
             // Disable button
             searchButton.setClickable(false);
         }
-
-        // Add Weather Display
-        _weather = new WeatherDisplay(_context);
-
-        // Add views to main view
-        _appLayout.addView(_search);
-        _appLayout.addView(_weather);
-
-        // Set layout orientation
-        _appLayout.setOrientation(LinearLayout.VERTICAL);
-
-        // Set contentView
-        setContentView(_appLayout);
     }
 
     /**
@@ -171,8 +124,6 @@ public class MainActivity extends Activity {
         Log.i("CLICKED", zip);
        
         String baseUrl = "http://api.worldweatheronline.com/free/v1/weather.ashx";
-        
-        //Requested key for api calls
         String apiKey = "qsxcvw8kpztq9hpwjsm3yaa6";
         String qs = "";
         try {
@@ -187,7 +138,6 @@ public class MainActivity extends Activity {
             // Call weatherRequest method
             weatherRequest wr = new weatherRequest();
             wr.execute(finalURL);
-            
         } catch (MalformedURLException e) {
             Log.e("BAD URL", "MalformedURLException");
             finalURL = null;
@@ -258,13 +208,25 @@ public class MainActivity extends Activity {
                     String _humidity = results.getJSONObject(0).getString("humidity");
                     String _windSpeed = results.getJSONObject(0).getString("windspeedMiles");
                     String _windDirection = results.getJSONObject(0).getString("winddir16Point");
+                    Integer _image = null;
+
+                    // Set description image
+                    if (_description.equals("Sunny")) {
+                        _image = R.drawable.sunny;
+                    } else if (_description.equals("Partly Cloudy")) {
+                        _image = R.drawable.partly_cloudy;
+                    } else if (_description.equals("Overcast") || _description.equals("Cloudy")) {
+                        _image = R.drawable.overcast;
+                    } else {
+                        _image = R.drawable.warning;
+                    }
 
                     Log.i("RESULTS", results.toString());
                     Log.i("REQUEST", request);
                     Log.i("WEATHER VALUES", _description + _tempC + _tempF + _humidity + _windSpeed + _windDirection);
 
                     // Set values in WeatherDisplay
-                    _weather.setWeatherInfo(_description, _tempC , _tempF, _humidity, _windSpeed, _windDirection);
+                    setWeatherInfo(_image, _tempC , _tempF, _humidity, _windSpeed, _windDirection);
 
                     // Create toast (popup)
                     Toast toast = Toast.makeText(_context,"Valid Zip, " + request, Toast.LENGTH_SHORT);
@@ -281,5 +243,51 @@ public class MainActivity extends Activity {
                 Log.e("JSON", e.toString());
             }
         }
+    }
+
+    /**
+     * Sets the weather info.
+     *
+     * @param descImage the desc image
+     * @param tempCText the temp c text
+     * @param tempFText the temp f text
+     * @param humidityText the humidity text
+     * @param windSpeedText the wind speed text
+     * @param windDirText the wind dir text
+     */
+    public void setWeatherInfo(Integer descImage ,String tempCText, String tempFText, String humidityText, String windSpeedText, String windDirText) {
+        // Set TextView in GridLayout
+        ((ImageView)findViewById(R.id.data_image)).setImageResource(descImage);
+        ((TextView) findViewById(R.id.data_tempC)).setText(tempCText);
+        ((TextView) findViewById(R.id.data_tempF)).setText(tempFText);
+        ((TextView) findViewById(R.id.data_humidity)).setText(humidityText);
+        ((TextView) findViewById(R.id.data_windSpeed)).setText(windSpeedText);
+        ((TextView) findViewById(R.id.data_windDirection)).setText(windDirText);
+    }
+
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Set content from XML layout
+        setContentView(R.layout.form);
+
+        // Call createLayout method
+        createLayout();
+    }
+
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 }

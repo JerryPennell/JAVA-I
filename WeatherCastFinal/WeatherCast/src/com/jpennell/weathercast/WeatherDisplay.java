@@ -13,6 +13,7 @@ import android.content.Context;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class WeatherDisplay.
