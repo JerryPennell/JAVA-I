@@ -194,7 +194,7 @@ public class MainActivity extends Activity {
                 Boolean error = data.has("error");
                 if (error) {
                     // Create toast (popup)
-                    Toast toast = Toast.makeText(_context,"Invalid Zip", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(_context,"Bad Zip", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
                     // Get JSON data
@@ -223,10 +223,10 @@ public class MainActivity extends Activity {
 
                     Log.i("RESULTS", results.toString());
                     Log.i("REQUEST", request);
-                    Log.i("WEATHER VALUES", _description + _tempC + _tempF + _humidity + _windSpeed + _windDirection);
+                    Log.i("WEATHER VALUES", _description + _tempF + _tempC + _humidity + _windSpeed + _windDirection);
 
                     // Set values in WeatherDisplay
-                    setWeatherInfo(_image, _tempC , _tempF, _humidity, _windSpeed, _windDirection);
+                    setWeatherInfo(_image, _tempF, _tempC, _humidity, _windSpeed, _windDirection);
 
                     // Create toast (popup)
                     Toast toast = Toast.makeText(_context,"Valid Zip, " + request, Toast.LENGTH_SHORT);
@@ -244,6 +244,8 @@ public class MainActivity extends Activity {
             }
         }
     }
+    
+    
 
     /**
      * Sets the weather info.
@@ -255,11 +257,11 @@ public class MainActivity extends Activity {
      * @param windSpeedText the wind speed text
      * @param windDirText the wind dir text
      */
-    public void setWeatherInfo(Integer descImage ,String tempCText, String tempFText, String humidityText, String windSpeedText, String windDirText) {
+    public void setWeatherInfo(Integer descImage , String tempFText, String tempCText, String humidityText, String windSpeedText, String windDirText) {
         // Set TextView in GridLayout
         ((ImageView)findViewById(R.id.data_image)).setImageResource(descImage);
-        ((TextView) findViewById(R.id.data_tempC)).setText(tempCText);
         ((TextView) findViewById(R.id.data_tempF)).setText(tempFText);
+        ((TextView) findViewById(R.id.data_tempC)).setText(tempCText);
         ((TextView) findViewById(R.id.data_humidity)).setText(humidityText);
         ((TextView) findViewById(R.id.data_windSpeed)).setText(windSpeedText);
         ((TextView) findViewById(R.id.data_windDirection)).setText(windDirText);

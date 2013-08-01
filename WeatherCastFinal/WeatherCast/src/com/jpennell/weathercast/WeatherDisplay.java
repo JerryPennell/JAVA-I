@@ -59,14 +59,14 @@ public class WeatherDisplay extends GridLayout {
         TextView descriptionLabel = new TextView(_context);
         descriptionLabel.setText(getResources().getString(R.string.description_label));
         _description = new TextView(_context);
+        
+        TextView tempfLabel = new TextView(_context);
+        tempfLabel.setText(getResources().getString(R.string.tempf_label));
+        _tempF = new TextView(_context);
 
         TextView tempcLabel = new TextView(_context);
         tempcLabel.setText(getResources().getString(R.string.tempc_label));
         _tempC = new TextView(_context);
-
-        TextView tempfLabel = new TextView(_context);
-        tempfLabel.setText(getResources().getString(R.string.tempf_label));
-        _tempF = new TextView(_context);
 
         TextView humidityLabel = new TextView(_context);
         humidityLabel.setText(getResources().getString(R.string.humidity_label));
@@ -83,10 +83,10 @@ public class WeatherDisplay extends GridLayout {
         // Add elements to view
         this.addView(descriptionLabel);
         this.addView(_description);
-        this.addView(tempcLabel);
-        this.addView(_tempC);
         this.addView(tempfLabel);
         this.addView(_tempF);
+        this.addView(tempcLabel);
+        this.addView(_tempC);
         this.addView(humidityLabel);
         this.addView(_humidity);
         this.addView(windSpeedLabel);
@@ -99,17 +99,17 @@ public class WeatherDisplay extends GridLayout {
      * Sets the weather info.
      *
      * @param descriptionText the description text
-     * @param tempCText the temp c text
      * @param tempFText the temp f text
+     * @param tempCText the temp c text
      * @param humidityText the humidity text
      * @param windSpeedText the wind speed text
      * @param windDirText the wind dir text
      */
-    public void setWeatherInfo(String descriptionText, String tempCText, String tempFText, String humidityText, String windSpeedText, String windDirText) {
+    public void setWeatherInfo(String descriptionText, String tempFText, String tempCText, String humidityText, String windSpeedText, String windDirText) {
         // Set text in GridLayout
         _description.setText(descriptionText);
-        _tempC.setText(tempCText);
         _tempF.setText(tempFText);
+        _tempC.setText(tempCText);
         _humidity.setText(humidityText);
         _windSpeed.setText(windSpeedText);
         _windDirection.setText(windDirText);
