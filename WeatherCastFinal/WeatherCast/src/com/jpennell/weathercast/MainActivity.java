@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
                 // Check to make sure entered value is valid zip
                 if (field.getText().toString().length() != 5) {
                     // Create toast (popup)
-                    Toast toast = Toast.makeText(_context,"Invalid Zip", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(_context,"Bad Zip", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
                     // Call getWeather method
